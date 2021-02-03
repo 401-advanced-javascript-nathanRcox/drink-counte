@@ -84,8 +84,8 @@ export default function App(props) {
   return (
     <>
     <View style={styles.container}>
-      <Text>Count Drinkula: the Drink Counter</Text>
-      <Text>"One drink, ah ha ha!"</Text>
+      <Text style={{color: '#4682b4', fontSize: 24}}>Count Drinkula | the Drink Counter</Text>
+      <Text style={{color: '#4682b4', fontSize: 18}}>"One drink, ah ha ha!"</Text>
       
       {(display === false) ? <Text></Text> :
         <View>
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: '#ffe4b5',
     alignItems: 'center',
     justifyContent: 'center',
   },
