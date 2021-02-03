@@ -7,22 +7,23 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function App(props) {
 
-  // const [contacts, setContacts] = useState( [] );
   const [permissions, setPermissions] = useState(false);
   const [drinkCounter, setDrinkCounter] = useState(0);
   const [wineCounter, setWineCounter] = useState(0);
   const [beerCounter, setBeerCounter] = useState(0);
   const [liquorCounter, setLiquourCounter] = useState(0);
 
-  let todaysDate = new Date().toDateString();
-  const [date, setDate] = useState(new Date());
+  // let todaysDate = new Date().toDateString();
+  const [date, setDate] = useState(new Date()); // Defaults to today's date.
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  const [display, setDisplay] = useState(true);
+  const [addButtons, setAddButtons] = useState(false);
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const startDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
-    setDate(currentDate);
+    setDate(startDate);
     resetCounters();
   };
 
@@ -33,13 +34,15 @@ export default function App(props) {
 
   const showDatepicker = () => {
     showMode('date');
+    setDisplay(false);
   };
+
+  // const [contacts, setContacts] = useState( [] );
+
   // const getPermissions = async () => {
   //   const { status } = await Permissions.askAsync(Permissions.CONTACTS);
   //   setPermissions(true);
   // };
-
-
 
   // const showContacts = async () => {
   //   const contactList = await Contacts.getContactsAsync();
@@ -76,32 +79,36 @@ export default function App(props) {
   return (
     <>
     <View style={styles.container}>
-      <Text>The Drink Counter</Text>
-      {/* <Text>Total drinks ({drinkCounter}) since {date.toDateString()}</Text> */}
-
-      <View>
-      <View>
-        <Button onPress={showDatepicker} title="Pick a Start Date" />
-      </View>
-      <Text> Total drinks ({drinkCounter}) since </Text>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
-      )}
-    </View>
-
-      <Button onPress={()=> chooseDrink('wine')} title="Wine"></Button>
-      <Text>({wineCounter})</Text>
-      <Button onPress={()=> chooseDrink('beer')} title="Beer"></Button>
-      <Text>({beerCounter})</Text>
-      <Button onPress={()=> chooseDrink('liquor')} title="Liquor"></Button>
-      <Text>({liquorCounter})</Text>
+      <Text>Count Drinkula: the Drink Counter</Text>
+      <Text>"One drink, ah ha ha!"</Text>
+      
+      {(display === false) ? <Text></Text> :
+        <View>
+          <Button onPress={showDatepicker} title="Pick a Start Date" />
+        </View>
+      }
+      {(display === true) ? <Text></Text> :
+        <View>
+          <Text> Total drinks = ({drinkCounter}) since </Text>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={onChange}
+            />
+          )}
+        </View>
+      }
+      {(addButtons === false) ? <Text></Text> :
+        <View>
+          <Button onPress={()=> chooseDrink('wine')} title="Wine"></Button><Text>({wineCounter})</Text>
+          <Button onPress={()=> chooseDrink('beer')} title="Beer"></Button><Text>({beerCounter})</Text>
+          <Button onPress={()=> chooseDrink('liquor')} title="Liquor"></Button><Text>({liquorCounter})</Text>
+        </View>
+      }
       <StatusBar style="auto" />
     </View>
     </>
