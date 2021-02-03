@@ -12,13 +12,13 @@ export default function App(props) {
   const [wineCounter, setWineCounter] = useState(0);
   const [beerCounter, setBeerCounter] = useState(0);
   const [liquorCounter, setLiquourCounter] = useState(0);
+  const [addButtons, setAddButtons] = useState(false);
 
   // let todaysDate = new Date().toDateString();
   const [date, setDate] = useState(new Date()); // Defaults to today's date.
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [display, setDisplay] = useState(true);
-  const [addButtons, setAddButtons] = useState(false);
 
   const onChange = (event, selectedDate) => {
     const startDate = selectedDate || date;
@@ -58,11 +58,16 @@ export default function App(props) {
   //     .catch(console.error);
   // };
 
+  const addDrink = () => {
+    setAddButtons(true);
+  }
+
   const chooseDrink = choice => {
     setDrinkCounter(1+drinkCounter);
     if (choice === 'wine') setWineCounter(1+wineCounter);
     if (choice === 'beer') setBeerCounter(1+beerCounter);
     if (choice === 'liquor') setLiquourCounter(1+liquorCounter);
+    setAddButtons(false);
   }
 
   const resetCounters = () => {
@@ -100,6 +105,11 @@ export default function App(props) {
               onChange={onChange}
             />
           )}
+        </View>
+      }
+      {(addButtons === true) ? <Text></Text> :
+        <View>
+          <Button onPress={addDrink} title="Add a Drink"></Button>
         </View>
       }
       {(addButtons === false) ? <Text></Text> :
