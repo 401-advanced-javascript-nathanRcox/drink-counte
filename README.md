@@ -15,4 +15,5 @@
 
 ## To Use
 
+- exp://192.168.0.11:19000
 - Open the app, tap buttons.
